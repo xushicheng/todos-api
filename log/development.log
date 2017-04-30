@@ -1,0 +1,131 @@
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateTodos (20170430014939)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "todos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "created_by" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170430014939"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-04-30 01:49:47.753191"], ["updated_at", "2017-04-30 01:49:47.753191"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateItems (20170430020028)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "done" boolean, "todo_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_c01e6b449d"
+FOREIGN KEY ("todo_id")
+  REFERENCES "todos" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_items_on_todo_id" ON "items" ("todo_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170430020028"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_items_on_todo_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_items_on_todo_id' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2017-04-30 14:19:13 +0800
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/xushicheng/.rvm/gems/ruby-2.3.1/gems/railties-5.1.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/xushicheng/.rvm/gems/ruby-2.3.1/gems/railties-5.1.0/lib/rails/templates/rails/welcome/index.html.erb (3.8ms)
+Completed 200 OK in 10ms (Views: 7.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2017-04-30 14:19:14 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.1.0) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.0) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.0) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.0) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.0) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.0) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.0) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.0) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.0) lib/rails/engine.rb:522:in `call'
+puma (3.8.2) lib/puma/configuration.rb:224:in `call'
+puma (3.8.2) lib/puma/server.rb:600:in `handle_request'
+puma (3.8.2) lib/puma/server.rb:435:in `process_client'
+puma (3.8.2) lib/puma/server.rb:299:in `block in run'
+puma (3.8.2) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/todos" for 127.0.0.1 at 2017-04-30 14:19:53 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+Completed 200 OK in 9ms (Views: 1.8ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/todos" for 127.0.0.1 at 2017-04-30 14:26:30 +0800
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/todos" for 127.0.0.1 at 2017-04-30 14:26:34 +0800
+Processing by TodosController#create as */*
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Completed 422 Unprocessable Entity in 13ms (Views: 0.2ms | ActiveRecord: 0.5ms)
+
+
+2017-04-30 14:38:59.335765 [32mD[0m [14526:puma 005] [32mRack[0m -- Started -- { :method[0;37m => [0m[0;33m"POST"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :ip[0;37m => [0m[0;33m"127.0.0.1"[0m }
+2017-04-30 14:38:59.593157 [32mD[0m [14526:puma 005] [32mActiveRecord::Base[0m --   [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+2017-04-30 14:38:59.675318 [32mD[0m [14526:puma 005] [32mTodosController[0m -- Processing #create
+2017-04-30 14:38:59.688408 [32mD[0m [14526:puma 005] [32mActiveRecord::Base[0m --   [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+2017-04-30 14:38:59.696212 [32mD[0m [14526:puma 005] [32mActiveRecord::Base[0m --   [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+2017-04-30 14:38:59.696920 [36mI[0m [14526:puma 005] ([1m21.5ms[0m) [36mTodosController[0m -- Completed #create -- { :controller[0;37m => [0m[0;33m"TodosController"[0m, :action[0;37m => [0m[0;33m"create"[0m, :format[0;37m => [0m[0;33m"*/*"[0m, :method[0;37m => [0m[0;33m"POST"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :status[0;37m => [0m[1;34m422[0m, :view_runtime[0;37m => [0m[1;34m0.4[0m, :db_runtime[0;37m => [0m[1;34m0.67[0m, :status_message[0;37m => [0m[0;33m"Unprocessable Entity"[0m }
+2017-04-30 14:39:12.426346 [32mD[0m [14526:puma 005] [32mRack[0m -- Started -- { :method[0;37m => [0m[0;33m"GET"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :ip[0;37m => [0m[0;33m"127.0.0.1"[0m }
+2017-04-30 14:39:12.427910 [32mD[0m [14526:puma 005] [32mTodosController[0m -- Processing #index
+2017-04-30 14:39:12.430614 [32mD[0m [14526:puma 005] [32mActiveRecord::Base[0m --   [1m[36mTodo Load (1.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+2017-04-30 14:39:12.431013 [36mI[0m [14526:puma 005] ([1m3.059ms[0m) [36mTodosController[0m -- Completed #index -- { :controller[0;37m => [0m[0;33m"TodosController"[0m, :action[0;37m => [0m[0;33m"index"[0m, :format[0;37m => [0m[0;33m"*/*"[0m, :method[0;37m => [0m[0;33m"GET"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :status[0;37m => [0m[1;34m200[0m, :view_runtime[0;37m => [0m[1;34m1.17[0m, :db_runtime[0;37m => [0m[1;34m1.55[0m, :status_message[0;37m => [0m[0;33m"OK"[0m }
+2017-04-30 14:40:20.567355 [32mD[0m [14603:puma 005] [32mRack[0m -- Started -- { :method[0;37m => [0m[0;33m"GET"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :ip[0;37m => [0m[0;33m"127.0.0.1"[0m }
+2017-04-30 14:40:20.756287 [32mD[0m [14603:puma 005] [32mActiveRecord::Base[0m --   [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+2017-04-30 14:40:20.765602 [32mD[0m [14603:puma 005] [32mTodosController[0m -- Processing #index
+2017-04-30 14:40:20.772349 [32mD[0m [14603:puma 005] [32mActiveRecord::Base[0m --   [1m[36mTodo Load (0.4ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+2017-04-30 14:40:20.773552 [36mI[0m [14603:puma 005] ([1m7.891ms[0m) [36mTodosController[0m -- Completed #index -- { :controller[0;37m => [0m[0;33m"TodosController"[0m, :action[0;37m => [0m[0;33m"index"[0m, :format[0;37m => [0m[0;33m"*/*"[0m, :method[0;37m => [0m[0;33m"GET"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :status[0;37m => [0m[1;34m200[0m, :view_runtime[0;37m => [0m[1;34m1.16[0m, :db_runtime[0;37m => [0m[1;34m0.76[0m, :status_message[0;37m => [0m[0;33m"OK"[0m }
+2017-04-30 14:40:39.984474 [32mD[0m [14642:puma 005] [32mRack[0m -- Started -- { :method[0;37m => [0m[0;33m"GET"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :ip[0;37m => [0m[0;33m"127.0.0.1"[0m }
+2017-04-30 14:40:40.196523 [32mD[0m [14642:puma 005] [32mActiveRecord::Base[0m --   [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+2017-04-30 14:40:40.208602 [32mD[0m [14642:puma 005] [32mTodosController[0m -- Processing #index
+2017-04-30 14:40:40.215416 [32mD[0m [14642:puma 005] [32mActiveRecord::Base[0m --   [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+2017-04-30 14:40:40.218462 [36mI[0m [14642:puma 005] ([1m9.794ms[0m) [36mTodosController[0m -- Completed #index -- { :controller[0;37m => [0m[0;33m"TodosController"[0m, :action[0;37m => [0m[0;33m"index"[0m, :format[0;37m => [0m[0;33m"*/*"[0m, :method[0;37m => [0m[0;33m"GET"[0m, :path[0;37m => [0m[0;33m"/todos"[0m, :status[0;37m => [0m[1;34m200[0m, :view_runtime[0;37m => [0m[1;34m2.8[0m, :db_runtime[0;37m => [0m[1;34m0.78[0m, :status_message[0;37m => [0m[0;33m"OK"[0m }
+2017-04-30 14:40:57.066099 [32mD[0m [14678:puma 005] [32mRack[0m -- Started -- {:method=>"GET", :path=>"/todos", :ip=>"127.0.0.1"}
+2017-04-30 14:40:57.260695 [32mD[0m [14678:puma 005] [32mActiveRecord::Base[0m --   [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+2017-04-30 14:40:57.275391 [32mD[0m [14678:puma 005] [32mTodosController[0m -- Processing #index
+2017-04-30 14:40:57.280810 [32mD[0m [14678:puma 005] [32mActiveRecord::Base[0m --   [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+2017-04-30 14:40:57.281854 [36mI[0m [14678:puma 005] ([1m6.408ms[0m) [36mTodosController[0m -- Completed #index -- {:controller=>"TodosController", :action=>"index", :format=>"*/*", :method=>"GET", :path=>"/todos", :status=>200, :view_runtime=>1.2, :db_runtime=>0.36, :status_message=>"OK"}
+Started GET "/todos" for 127.0.0.1 at 2017-04-30 14:41:10 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TodosController#index as */*
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+Completed 200 OK in 6ms (Views: 1.1ms | ActiveRecord: 0.4ms)
+
+
+2017-04-30 14:41:53.352507 [32mD[0m [14789:puma 005] [32mRack[0m -- Started -- {:method=>"GET", :path=>"/todos", :ip=>"127.0.0.1"}
+2017-04-30 14:41:53.526403 [32mD[0m [14789:puma 005] [32mActiveRecord::Base[0m --   [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+2017-04-30 14:41:53.534646 [32mD[0m [14789:puma 005] [32mTodosController[0m -- Processing #index
+2017-04-30 14:41:53.539666 [32mD[0m [14789:puma 005] [32mActiveRecord::Base[0m --   [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos"[0m
+2017-04-30 14:41:53.540712 [36mI[0m [14789:puma 005] ([1m6.005ms[0m) [36mTodosController[0m -- Completed #index -- {:controller=>"TodosController", :action=>"index", :format=>"*/*", :method=>"GET", :path=>"/todos", :status=>200, :view_runtime=>1.14, :db_runtime=>0.37, :status_message=>"OK"}
+2017-04-30 14:50:53.532182 [32mD[0m [14789:puma 005] [32mRack[0m -- Started -- {:method=>"GET", :path=>"/", :ip=>"127.0.0.1"}
+2017-04-30 14:51:03.561369 [32mD[0m [14789:puma 005] [32mRails::WelcomeController[0m -- Processing #index
+2017-04-30 14:51:03.590877 [32mD[0m [14789:puma 005] [32mActionView::Base[0m --   Rendering /Users/xushicheng/.rvm/gems/ruby-2.3.1/gems/railties-5.1.0/lib/rails/templates/rails/welcome/index.html.erb
+2017-04-30 14:51:03.594891 [32mD[0m [14789:puma 005] [32mActionView::Base[0m --   Rendered /Users/xushicheng/.rvm/gems/ruby-2.3.1/gems/railties-5.1.0/lib/rails/templates/rails/welcome/index.html.erb (4.0ms)
+2017-04-30 14:51:03.595066 [36mI[0m [14789:puma 005] ([1m33.6ms[0m) [36mRails::WelcomeController[0m -- Completed #index -- {:controller=>"Rails::WelcomeController", :action=>"index", :format=>"*/*", :method=>"GET", :path=>"/", :status=>200, :view_runtime=>17.97, :status_message=>"OK"}
